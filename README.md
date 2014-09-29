@@ -1,6 +1,6 @@
-# Heroku Buildpack: Go
+# Heroku Buildpack: Go + bower
 
-This is a [Heroku buildpack][buildpack] for [Go][go].
+This is a [Heroku buildpack][buildpack] for [Go][go] and [bower][bower].
 
 ## Getting Started
 
@@ -19,7 +19,7 @@ $ ls -A1
 ./Procfile
 ./web.go
 
-$ heroku create -b https://github.com/kr/heroku-buildpack-go.git
+$ heroku create -b https://github.com/miguelfrde/heroku-buildpack-go-bower.git
 ...
 
 $ git push heroku master
@@ -30,7 +30,9 @@ $ git push heroku master
        Installing Virtualenv... done
        Installing Mercurial... done
        Installing Bazaar... done
------> Running: go get -tags heroku ./...
+-----> Installing node 0.10.32 and bower... done
+-----> Installing bower dependencies... done
+-----> Running: godep go install -tags heroku ./...
 -----> Discovering process types
        Procfile declares types -> web
 -----> Compiled slug size: 1.0MB
@@ -58,6 +60,7 @@ BUILDPACK_URL=YOUR_GITHUB_GIT_URL` instead of `--buildpack`.
 [quickstart]: http://mmcgrana.github.com/2012/09/getting-started-with-go-on-heroku.html
 [build-constraint]: http://golang.org/pkg/go/build/
 [app-engine-build-constraints]: http://blog.golang.org/2013/01/the-app-engine-sdk-and-workspaces-gopath.html
+[bower]: http://bower.io/ 
 
 ## .godir and Godeps
 
