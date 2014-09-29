@@ -33,3 +33,17 @@ it_compiles_app() {
   test "$(./build/bin/mytest 2>&1)" = "ok"
   rm -rf build cache
 }
+
+it_installs_node() {
+    compile
+    test -x build/vendor/node/bin/node
+    test -x build/vendor/node/bin/npm
+    rm -rf build cache
+}
+
+it_installs_bower() {
+    compile
+    test -x build/vendor/node/bin/bower
+    rm -rf build cache
+}
+

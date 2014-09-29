@@ -96,6 +96,29 @@ else
     echo " done"
 fi
 
+node_version=0.10.32
+node_url=http://nodejs.org/dist/v$node_version/node-v$node_version-linux-x64.tar.gz
+
+if test -d $cache/node-v$node_version-linux-x64
+then
+    echo "-----> Using node $node_version with bower"
+else
+    echo -n "-----> Installing node $node_version and bower..."
+    curl $node_url -s -o - | tar xzf - -C $cache
+    # should be: npm install -g bower --silent (but: https://github.com/npm/npm/issues/2040)
+    $cache/node-v$node_version-linux-x64/bin/npm install -g bower > /dev/null
+    echo " done"
+fi
+
+mkdir -p $build/vendor
+cp -R $cache/node-v$node_version-linux-x64 $build/vendor/node
+chmod +x $build/vendor/node/bin/*
+PATH=$build/vendor/node/bin:$PATH
+
+echo -n "-----> Installing bower components..."
+(cd $build && bower install --silent)
+echo " done"
+
 mkdir -p $build/bin
 GOBIN=$build/bin export GOBIN
 GOROOT=$cache/$ver/go export GOROOT
