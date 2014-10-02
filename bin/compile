@@ -119,6 +119,9 @@ echo -n "-----> Installing bower components..."
 (cd $build && bower install --silent)
 echo " done"
 
+mkdir -p $build/tmp
+mkdir -p $build/log
+
 mkdir -p $build/bin
 GOBIN=$build/bin export GOBIN
 GOROOT=$cache/$ver/go export GOROOT
